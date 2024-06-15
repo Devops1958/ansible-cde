@@ -1,0 +1,76 @@
+---
+
+- hosts: all
+  become: yes
+  gather_facts: yes   
+
+  tasks:
+    - name: Install ngnix
+      apt:
+        name: ngnix
+        state: present
+        update_cache: yes
+      tags: 
+        - apt_get    
+      when: ansible_os_family=="Debian"
+    - name: install ngnix on RedHat family
+      package:
+        name: httpd
+        state: present
+      when: ansible_os_family=="RedHat"
+    - name: Start httpd daemon
+      service:
+        name: httpd
+        state: started
+        enabled: yes  
+      
+    - name: create user Stephen 
+      user:
+        name: Stephen
+        comment: Stephen Smith
+        shell: /bin/bash
+    - name: create group
+      group:
+        name: cloudteam
+           
+        state: present
+    - name: create index file
+      file:
+        path: /var/www/html/index.html
+        state: touch
+      register: file_output
+      tags:
+         - a
+         - b  
+    - name: Read data
+      debug:
+        var: file_output.diff.before.path    
+    - name: create directory
+      file:
+        path: /tmp/os
+        state: directory
+
+
+    - name: copy content to index
+      copy:      
+        dest: file_output.diff.before.path 
+        content: <h1> this is created using ansible<h1/>
+
+          
+   
+    
+          
+      
+       
+          
+
+
+
+        
+ 
+    
+
+       
+         
+  
+
