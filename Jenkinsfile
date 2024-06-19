@@ -15,6 +15,16 @@ pipeline{
                 "http://35.168.2.178:8081/artifactory/ansible/ansible-${BUILD_ID}.zip"'
             }
         }
+        stage('publish to ansible server'){
+            steps{
+                sh sshPublisher(publishers: [sshPublisherDesc(configName: 'Ansible-server', \
+                transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', \
+                execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, \
+                patternSeparator: '[, ]+', remoteDirectory: '/home/ec2-user', \
+                remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'ansible-server')], usePromotionTimestamp: false, \
+                useWorkspaceInPromotion: false, verbose: false)])
+            }
+        }
     }
     
 }
