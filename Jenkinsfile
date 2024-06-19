@@ -22,7 +22,7 @@ pipeline{
                  'ls ', execTimeout: 120000, flatten: false, makeEmptyDirs: false, \
                  noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: \
                  '/home/ec2-user', remoteDirectorySDF: false, removePrefix: '', \
-                 sourceFiles: 'ansible-server')], usePromotionTimestamp: false, \
+                 sourceFiles: 'ansible-${BUILD_ID}.zip')], usePromotionTimestamp: false, \
                  useWorkspaceInPromotion: false, verbose: false)])
             }
         }
