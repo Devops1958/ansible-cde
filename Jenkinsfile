@@ -17,12 +17,13 @@ pipeline{
         }
         stage('publish to ansible server'){
             steps{
-                sh sshPublisher(publishers: [sshPublisherDesc(configName: 'Ansible-server', \
-                transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', \
-                execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, \
-                patternSeparator: '[, ]+', remoteDirectory: '/home/ec2-user', \
-                remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'ansible-server')], usePromotionTimestamp: false, \
-                useWorkspaceInPromotion: false, verbose: false)])
+                 sshPublisher(publishers: [sshPublisherDesc(configName: 'Ansible-server', \
+                 transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: \
+                 'ls ', execTimeout: 120000, flatten: false, makeEmptyDirs: false, \
+                 noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: \
+                 '/home/ec2-user', remoteDirectorySDF: false, removePrefix: '', \
+                 sourceFiles: 'ansible-server')], usePromotionTimestamp: false, \
+                 useWorkspaceInPromotion: false, verbose: false)])
             }
         }
     }
